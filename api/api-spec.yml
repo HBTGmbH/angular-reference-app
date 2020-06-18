@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Ref App API
+  version: '1.0'
+servers:
+  - url: 'http://localhost:4200'
+paths:
+  /assets/users:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - refAppUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      operationId: getAllUsers
+      description: Returns all users
+    parameters: []
+components:
+  schemas: {}

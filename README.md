@@ -1,27 +1,60 @@
 # AngularReferenceApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+## Purpose
+This repository is supposed to serve as a reference architecture for
+angular apps. It is supposed to be a suggestion on how to build the foundation
+of a scalable and easily extendable angular app.
 
-## Development server
+It uses these dependencies/technologies:
+* @ngrx/store and @ngrx/effects as an example for state management
+* openapi and openapi-generator to work with an API
+* primeng as an example for a component framework.
+* scss for styling
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+All these components are interchangeable and are only a suggestion based
+on experiences with angular applications. 
 
-## Code scaffolding
+This reference-app is also supposed to serve as a base for discussion.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Things you need and why
+1. ``nodeJS``. The angular CLI is based on node and uses node as interpreter. This does not mean
+angular runs on node. Angular still runs in your browser.
+2. ``Typescript (tsc)``. Typescript will be downloaded when you are ``npm install``. It adds a 
+typesafe layer over javascriüt
+3. ``yarn``. Though you could use npm (bundled with node), yarn is a lot faster and
+smoother.
+4. ``A webkit browser`` like Chrome, Brave or the new Edge. Developing in a webkit browser
+is a lot smoother than developing in Firefox or...Internet Explorer...
+5. ``Firefox and Internet Explorer`` because you will most likely have to support **clearly inferior** browsers, too
+6. ``redux-devtools``, which is a chrome extension that will help you understand
+what is going on in your ``@ngrx/store``. Redux is the core concept used by ``@ngrx/store``
 
-## Build
+## How-To
+1. Checkout this repository
+2. run ``yarn install``
+3. run ``ng serve``
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+# In-Detail
+Relevant directories and relevant classes/components will have detailed
+comments, elaborating why the structure is built like it is, and what
+possible alternatives are.
 
-## Running unit tests
+If comments are not possible (e.g. in JSON), please refer to the readme
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### On ngrx
+While ngrx is pretty verbose, using global state management and the feature-rich
+ngrx-ecosystem provides a few advantage if you follow these guidelines:
 
-## Running end-to-end tests
+1. Place everything in the store. Even small bits of state like ``dialogOpen``.
+2. Use finely-grained actions. Don't try to group multiple events into a single action.
+3. Embrace and test effects. Effects can be a pretty powerful tool, but can get quite complicated.
+As soon as you realize your effects are getting more complex, test them with rxjs-marbles.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Extending the application
+An advantage of this pattern is easy extendability of your application. To add something
+new to your application, simply:
+1. Use the angular cli to generate a new module in ``features``
+2. Define an entry component.
+3. Add it the the ``app-routing.module.ts`` via loadChildren
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Done. You can now develop your feature (almost) independently from the rest of your application.
